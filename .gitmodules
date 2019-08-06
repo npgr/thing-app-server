@@ -1,0 +1,3 @@
+[submodule "thing-app"]
+	path = thing-app
+	url = https://github.com/npgr/thing-app.git
