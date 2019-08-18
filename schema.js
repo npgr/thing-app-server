@@ -29,7 +29,10 @@ const ThingType = new GraphQLObjectType({
     creator: { type: CreatorType },
     is_private: { type: GraphQLBoolean },
     is_purchased: { type: GraphQLBoolean },
-    is_published: { type: GraphQLBoolean }
+    is_published: { type: GraphQLBoolean },
+    // detail fields
+    description: { type: GraphQLString },
+    license: { type: GraphQLString }
   })
 })
 
@@ -65,6 +68,15 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(ThingType),
       resolve(parent, args) {
         return loadThings('featured')
+      }
+    },
+    thing: {
+      type: ThingType,
+      args: {
+        id: { type: GraphQLInt }
+      },
+      resolve(parent, args) {
+        return loadThings(`things/${args.id}`)
       }
     }
   }
