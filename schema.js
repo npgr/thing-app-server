@@ -32,7 +32,10 @@ const ThingType = new GraphQLObjectType({
     is_published: { type: GraphQLBoolean },
     // detail fields
     description: { type: GraphQLString },
-    license: { type: GraphQLString }
+    license: { type: GraphQLString },
+    added: { type: GraphQLString },
+    modified: { type: GraphQLString },
+    default_image: { type: ImageType }
   })
 })
 
@@ -46,6 +49,14 @@ const CreatorType = new GraphQLObjectType({
     url: { type: GraphQLString },
     public_url: { type: GraphQLString },
     thumbnail: { type: GraphQLString }
+  })
+})
+
+const ImageType = new GraphQLObjectType({
+  name: 'Image',
+  fields: () => ({
+    id: { type: GraphQLInt },
+    url: { type: GraphQLString }
   })
 })
 
