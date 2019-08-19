@@ -7,6 +7,18 @@ const app = express()
 
 app.use(cors())
 
+function checkToken(req, res) {
+  //check if exist a valid token
+  res.json({ validToken: true })
+}
+
+function getToken(req, res) {
+  // Get Access Token from thingiverse
+  res.json({ code: req.params.code })
+}
+
+app.get('/checkToken', checkToken)
+app.get('/getToken/:code', getToken)
 app.use(
   '/graphql',
   graphqlHTTP({
