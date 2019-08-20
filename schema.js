@@ -1,4 +1,5 @@
 const thingiverse = require('thingiverse-js')
+const axios = require('axios')
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -8,15 +9,28 @@ const {
   GraphQLList
 } = require('graphql')
 
-const token = process.env.THINGVERSE_KEY
+//const token = process.env.THINGVERSE_KEY
 
-const loadThings = type =>
-  thingiverse(type, { token })
+const checkValidToken = () =>
+  axios
+    .get('/validToken')
+    .then(response => {
+      return response.validToken || false
+    })
+    .catch(error => {
+      return false
+    })
+
+const loadThings = type => {
+  if (!token) return []
+  return thingiverse(type, { token })
     .then(res => res.body)
     .catch(err => {
       console.log(err)
       console.log(thingiverse.getError(err.response))
+      return []
     })
+}
 
 const ThingType = new GraphQLObjectType({
   name: 'Thing',
@@ -63,6 +77,12 @@ const ImageType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
+    validToken: {
+      type: GraphQLBoolean,
+      resolve(parent, args) {
+        return checkValidToken()
+      }
+    },
     popular: {
       type: GraphQLList(ThingType),
       resolve(parent, args) {
