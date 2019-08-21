@@ -3,8 +3,8 @@ const graphqlHTTP = require('express-graphql')
 const cors = require('cors')
 const axios = require('axios')
 
-global.token = ''
-//let token = ''
+//global.token = ''
+let token = ''
 const schema = require('./schema')
 
 const app = express()
@@ -14,6 +14,8 @@ app.use(cors())
 function validToken(req, res) {
   //check if exist a valid token
   console.log('GET /validToken')
+  //temporary
+  return res.json({ validToken: true })
   if (!token) return res.json({ validToken: false, empty: true })
   axios
     .post('https://www.thingiverse.com/login/oauth/tokeninfo', {
@@ -43,7 +45,6 @@ function getToken(req, res) {
       code
     })
     .then(response => {
-      // access_token=e72e16c7e42f292c6912e7710c838347ae178b4a&token_type=bearer
       console.log('reponse body: ', response.body)
       try {
         token = response.body.split('&')[0].split('=')[1]
@@ -58,7 +59,7 @@ function getToken(req, res) {
     })
     .catch(error => {
       const errorText = `${error.response.status} ${error.response.statusText}`
-      console.log('error: ', error.response)
+      console.log('error: ', errorText)
       res.json({
         error: errorText
       })

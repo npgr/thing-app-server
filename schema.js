@@ -9,15 +9,17 @@ const {
   GraphQLList
 } = require('graphql')
 
-//const token = process.env.THINGVERSE_KEY
+// temporary
+const token = process.env.THINGVERSE_KEY
 
 const checkValidToken = () =>
   axios
-    .get('/validToken')
+    .get('http://localhost:5000/validToken')
     .then(response => {
-      return response.validToken || false
+      return response.data.validToken || false
     })
     .catch(error => {
+      console.log('error: ', error)
       return false
     })
 
