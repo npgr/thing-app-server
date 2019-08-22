@@ -3,6 +3,7 @@ const graphqlHTTP = require('express-graphql')
 const cors = require('cors')
 const axios = require('axios')
 
+// The line below apply when we have a Bearer token (Oauth)
 //global.token = ''
 let token = ''
 const schema = require('./schema')
@@ -14,7 +15,8 @@ app.use(cors())
 function validToken(req, res) {
   //check if exist a valid token
   console.log('GET /validToken')
-  //temporary
+  //The line below is because Thingiverse is not approve this App for getting oAuth Tokens yet
+  // When token is invalid the explore page (home /) redirect to /auth page
   return res.json({ validToken: true })
   if (!token) return res.json({ validToken: false, empty: true })
   axios

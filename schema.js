@@ -9,23 +9,41 @@ const {
   GraphQLList
 } = require('graphql')
 
-// temporary
-const token = process.env.THINGVERSE_KEY
+// I use the App Token instead the bearer Token because
+// Thingiverse still not approve this app for Oauth
+
+// The best practice for using App token is the commented line code Below ,
+// instead of I put directly the value for facilitate your tests
+// const token = process.env.THINGVERSE_KEY
+const token = 'ed930400a63c5ebf73e24ff8050790bb'
 
 const checkValidToken = () =>
   axios
     .get('http://localhost:5000/validToken')
-    .then(response => {
-      return response.data.validToken || false
-    })
+    .then(res => res.data.validToken || false)
     .catch(error => {
       console.log('error: ', error)
       return false
     })
 
-const loadThings = type => {
+//The function below is in case whe have Oauth Bearer Token, Not possible for now
+const loadThingsV2 = (method, url) => {
+  axios({
+    method,
+    url,
+    // token for this case is a global var
+    headers: { Authorization: 'Bearer ' + token }
+  })
+    .then(res => res.body)
+    .catch(error => {
+      console.log('error: ', error)
+      return false
+    })
+}
+
+const loadThings = url => {
   if (!token) return []
-  return thingiverse(type, { token })
+  return thingiverse(url, { token })
     .then(res => res.body)
     .catch(err => {
       console.log(err)
