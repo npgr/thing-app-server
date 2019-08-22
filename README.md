@@ -27,6 +27,19 @@
   this will start the server and the client and will open on your default browser:
 
   ` http://localhost:8080 `
+  
+  The server is running on port 5000, you can query GraphQL on URL
+  
+  ` http://localhost:5000/graphql `
+  
+  For example you can run the query:
+  
+  `{ 
+    validToken,
+    popular { id, name },
+    newest { id, name },
+    featured { id, name }
+  }`
 
 
 ### oAuth Authentication
