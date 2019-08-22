@@ -1,4 +1,4 @@
-# thing-app-server
+# Thing-app-server
 
 ### Install & running Instructions
 
