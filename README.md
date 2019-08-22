@@ -4,7 +4,7 @@
 
 1. **Clone this repository in a folder**
 
-  ` git clone https://github.com/npgr/thing-app-server.git `
+  ` git clone --recurse-submodules https://github.com/npgr/thing-app-server.git `
 
   Or you can use your favorite Git Gui Client
 
@@ -12,15 +12,15 @@
 
 2. **Install dependencies**
 
-2.1. **Server dependencies:** on root path
+2.1. **Server dependencies:** inside folder thing-app-server/  run
 
   ` npm install `
 
-2.2. **Client dependencies:** inside thing-app folder
+2.2. **Client dependencies:** inside folder thing-app/  run
 
   ` npm install `
 
-3. **Running Application:** on root path
+3. **Running Application:** on folder thing-app-server/  run
 
   ` npm run dev `
 
@@ -58,6 +58,10 @@
   
   
  **Note:** was not possible at this time to get authorizacion of Thingiverse for the oAuth process (is on process), instead of this, the application uses the App Token. All the Flow for oAuth Authentication is implemented in code, with some disabled lines (commented)
+ 
+ You can go manually to /auth page, because the explore page will not redirect to /auth
+ 
+ `http://localhost:8080/auth`
  
  Any doubt do not hesitate in ask
  
